@@ -436,7 +436,7 @@ gulp.task('fontmin', function () {
 
 // Combining JS 
 gulp.task('js', function () {
-    gulp.src(jssrc)
+    return gulp.src(jssrc)
         .pipe(concat('cagov.core.js'))
         .pipe(header(bannerjs, { pkg: pkg }))
         .pipe(gulp.dest('js'))
@@ -444,7 +444,7 @@ gulp.task('js', function () {
 
 // JS Core Min 
 gulp.task('jsmin', function () {
-    gulp.src(jssrc)
+    return gulp.src(jssrc)
         .pipe(concat('cagov.core.min.js'))
         .pipe(uglify())
         .pipe(header(bannerjs, { pkg: pkg }))
@@ -480,7 +480,9 @@ gulp.task('watch', function () {
 //
 // DEV (Development Output)
 //
-gulp.task('dev', ['core', 'eureka', 'mono', 'oceanside', 'orangecounty', 'pasorobles', 'sacramento', 'santabarbara', 'sierra', 'trinity', 'font', 'js']);
+//gulp.task('dev', ['core', 'eureka', 'mono', 'oceanside', 'orangecounty', 'pasorobles', 'sacramento', 'santabarbara', 'sierra', 'trinity', 'font', 'js']);
+exports.dev = gulp.series('core', 'eureka', 'mono', 'oceanside', 'orangecounty', 'pasorobles', 'sacramento', 'santabarbara', 'sierra', 'trinity', 'font', 'js');
 
 // PROD (Minified Output)
-gulp.task('prod', ['coremin', 'eurekamin', 'monomin', 'oceansidemin', 'orangecountymin', 'pasoroblesmin', 'sacramentomin', 'santabarbaramin', 'sierramin', 'trinitymin', 'fontmin', 'jsmin']);
+//gulp.task('prod', ['coremin', 'eurekamin', 'monomin', 'oceansidemin', 'orangecountymin', 'pasoroblesmin', 'sacramentomin', 'santabarbaramin', 'sierramin', 'trinitymin', 'fontmin', 'jsmin']);
+exports.prod = gulp.series('coremin', 'eurekamin', 'monomin', 'oceansidemin', 'orangecountymin', 'pasoroblesmin', 'sacramentomin', 'santabarbaramin', 'sierramin', 'trinitymin', 'fontmin', 'jsmin');
